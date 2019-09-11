@@ -1,11 +1,11 @@
 #include "library.h"
 #include <torch/script.h>
 
-#include <string>
 #include <iostream>
+#include <string>
 #include <vector>
 
-int predict(std::string model_path, std::vector<float>* prediction) {
+int predict(const char* model_path, float* prediction) {
   torch::jit::script::Module module;
   try {
     module = torch::jit::load(model_path);
@@ -21,9 +21,15 @@ int predict(std::string model_path, std::vector<float>* prediction) {
   at::Tensor output = module.forward(inputs).toTensor();
 
   auto a = output.accessor<float, 2>();
+  if (a.size(1) != 1000) {
+    return -2;
+  }
+  if (a.size(0) != 1) {
+    return -3;
+  }
   for (int64_t i = 0; i < a.size(0); i++) {
     for (int64_t j = 0; j < a.size(1); j++) {
-      prediction->push_back(a[i][j]);
+      prediction[j] = a[i][j];
     }
   }
 

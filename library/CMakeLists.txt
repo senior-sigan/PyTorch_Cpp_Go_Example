@@ -13,5 +13,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
 find_package(Torch REQUIRED)
 
-add_library(${PROJECT_NAME} library.cpp library.h c_api.h c_library.h c_library.cpp)
+add_library(${PROJECT_NAME} library.cpp library.h c_api.h)
 target_link_libraries(${PROJECT_NAME} "${TORCH_LIBRARIES}")
