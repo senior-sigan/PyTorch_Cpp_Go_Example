@@ -21,8 +21,8 @@ func predict(modelPath string) {
 	}
 }
 
-func main() {
-	fmt.Println("Hello world")
-	modelPath := "model/traced_resnet_model.pt"
-	predict(modelPath)
-}
+// func main() {
+// 	fmt.Println("Hello world")
+// 	modelPath := "model/traced_resnet_model.pt"
+// 	predict(modelPath)
+// }
